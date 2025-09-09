@@ -4,7 +4,7 @@ class Player
 
     public Player()
     {
-        CurrentLocation = // Set location to home
+        CurrentLocation = World.LocationByID(1);// Set location to home
     }
 
     bool MoveLocation()
