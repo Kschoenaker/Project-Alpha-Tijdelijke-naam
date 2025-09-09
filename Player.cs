@@ -15,7 +15,7 @@ class Player
         DrawMap();
 
         Console.WriteLine();
-        Console.WriteLine("What direction woulfd you like to go? (N/S/E/W)");
+        Console.WriteLine("What direction would you like to go? (N/S/E/W)");
         string direction = Console.ReadLine();
 
         if (!(direction == "N" || direction == "S" || direction == "E" || direction == "W"))
@@ -73,8 +73,11 @@ class Player
         }
 
         Console.WriteLine($"Location updated successfully: {CurrentLocation.Name}");
+        Console.WriteLine(CurrentLocation.MoveMessage);
+        Console.WriteLine();
 
         // Show move options
+        Console.WriteLine("Move options");
         ShowMoveOptions();
 
         return true;
