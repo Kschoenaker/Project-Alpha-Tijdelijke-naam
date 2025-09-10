@@ -1,3 +1,5 @@
+namespace ProjectAlpha;
+
 public class Location
 {
     public int ID;

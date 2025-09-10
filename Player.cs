@@ -1,10 +1,49 @@
+namespace ProjectAlpha;
+
 class Player
 {
     public Location CurrentLocation;
+    public int CurrentHealth;
 
     public Player()
     {
-        CurrentLocation = World.LocationByID(1);// Set location to home
+        CurrentLocation = World.LocationByID(1); // Set location to home
+        CurrentHealth = 100;
+    }
+
+    public void InteractionMenu()
+    {
+        Console.WriteLine("You can perform the following actions in this location:");
+        Console.WriteLine("[S] Show your current stats");
+        Console.WriteLine("[M] Show the map and move to another location");
+        Console.WriteLine("[I] Show your inventory");
+
+        string menu_selection = Console.ReadLine()!.ToLower();
+
+        switch (menu_selection)
+        {
+            case "s":
+                Console.WriteLine($"Current health: {CurrentHealth}");
+                break;
+            // TODO: ADD MORE STUFF TO DISPLAY !!!
+
+            case "m":
+                MoveLocation();
+                break;
+
+            case "i":
+                // TODO: MAKE THE INVENTORY SYSTEM SO IT CAN BE SHOWN
+                break;
+
+            default:
+                break;
+        }
+
+        // The options are the following:
+        // M for Map/Move, which will show the map and challenge the user what location they want to move to (see move location)
+        // S for stats, which shows stats like: health, gold, strength.
+        // I to show the player inventory.
+        // NPC initials to interact/talk with them (related to start a quest).
     }
 
     bool MoveLocation()
@@ -76,9 +115,7 @@ class Player
         Console.WriteLine(CurrentLocation.MoveMessage);
         Console.WriteLine();
 
-        // Show move options
-        Console.WriteLine("Move options");
-        ShowMoveOptions();
+        InteractionMenu();
 
         return true;
     }
