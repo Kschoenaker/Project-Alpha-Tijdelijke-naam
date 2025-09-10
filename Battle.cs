@@ -10,22 +10,25 @@ public class Battle
     private int turnsDefend = 0;
     private Random rand = new Random();
 
-    public Battle(Player playerReference)
+    public Battle(Player playerReference, List<Monster> monsters)
     {
         PlayerReference = playerReference;
+        MonsterList = monsters;
         Stamina = 100;
     }
 
-    public void StartBattle()
+    public bool HandleBattle()
     {
-        Console.WriteLine("A dangerous opponent lies ahead");
-        Console.WriteLine("You ready you're weapon");
+        Console.WriteLine("A dangerous opponent lies ahead!");
+        Console.WriteLine("You ready you're weapon.");
+        Console.WriteLine();
 
         while (battleStarted)
         {
             PrintPlayerStats();
 
             string playerChoice = BattleOptionMenu().ToUpper();
+            Console.WriteLine();
             switch (playerChoice)
             {
                 case "A":
@@ -57,15 +60,55 @@ public class Battle
                     break;
             }
 
+            // Check if enemies are dead
+            if (MonsterList.Count <= 0)
+            {
+                Console.WriteLine("You win the battle.");
+                return true;
+            }
+
             // Enemy attack
             if (battleStarted)
             {
                 foreach (Monster attackingEnemy in MonsterList)
                 {
                     Console.WriteLine($"{attackingEnemy.Name} tries attacking");
+                    if (0.4 > rand.NextDouble())
+                    {
+                        int damage = 0;
+                        if (turnsDefend > 0)
+                        {
+                            damage = Convert.ToInt32((double)attackingEnemy.MaxDamage / 2);
+                            Console.WriteLine($"{attackingEnemy.Name} deals {damage} to you");
+                            PlayerReference.CurrentHealth -= damage;
+                        }
+                        else
+                        {
+                            damage = attackingEnemy.MaxDamage;
+                            Console.WriteLine($"{attackingEnemy.Name} deals {damage} to you");
+                            PlayerReference.CurrentHealth -= damage;
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine($"{attackingEnemy.Name} misses they're attack.");
+                    }
+                    Console.WriteLine();
+                }
+
+                if (PlayerReference.CurrentHealth <= 0)
+                {
+                    battleStarted = false; //Player dead
+                    return false;
                 }
             }
+
+            if (turnsDefend > 0)
+            {
+                turnsDefend -= 1;
+            }
         }
+        return false;
     }
 
     public string BattleOptionMenu()
@@ -75,7 +118,7 @@ public class Battle
         Console.WriteLine("[D] Defend");
         Console.WriteLine("[F] Flee");
 
-        return Console.ReadLine();
+        return Console.ReadLine()!;
     }
 
     public string AttackTypeMenu()
@@ -85,12 +128,13 @@ public class Battle
         Console.WriteLine("[S] Medium attack (Stamina cost: 25)");
         Console.WriteLine("[D] Small attack (Stamina cost: 10)");
 
-        return Console.ReadLine();
+        return Console.ReadLine()!;
     }
 
     public void HandlePlayerAttack()
     {
         string type = AttackTypeMenu();
+        Console.WriteLine();
         int staminaRequired = 0;
         double attackMultiplier = 1.0;
 
@@ -117,17 +161,18 @@ public class Battle
         if (Stamina > staminaRequired)
         {
             Stamina -= staminaRequired;
-            Monster choosenMonster = ChooseMonster();
+            Monster chosenMonster = ChooseMonster()!;
 
-            if (choosenMonster is not null)
+            if (chosenMonster is not null)
             {
-                choosenMonster.Health -= (double)PlayerReference.CurrentWeapon.Damage * attackMultiplier;
+                chosenMonster.CurrentHealth -= Convert.ToInt32((double)PlayerReference.CurrentWeapon.MaximumDamage * attackMultiplier);
+                CheckMonsterHealth(chosenMonster);
                 return;
             }
             else
             {
                 Console.WriteLine("You strike the air with full force.");
-                Console.WriteLine("The monsters look confused");
+                Console.WriteLine("The monsters look confused.");
                 return;
             }
         }
@@ -139,7 +184,7 @@ public class Battle
         }
     }
 
-    public Monster ChooseMonster()
+    public Monster? ChooseMonster()
     {
         Console.WriteLine("What monster will you attack");
         for (int i = 0; i < MonsterList.Count; i++)
@@ -147,7 +192,7 @@ public class Battle
             Console.WriteLine($"[{i}] {MonsterList[i].Name} - {MonsterList[i].CurrentHealth}/{MonsterList[i].MaxHealth}");
         }
 
-        int choice = int.Parse(Console.ReadLine());
+        int choice = int.Parse(Console.ReadLine()!);
 
         try
         {
@@ -156,6 +201,15 @@ public class Battle
         catch
         {
             return null;
+        }
+    }
+
+    public void CheckMonsterHealth(Monster monster)
+    {
+        if (monster.CurrentHealth <= 0)
+        {
+            Console.WriteLine($"{monster.Name} was slain");
+            MonsterList.Remove(monster);
         }
     }
 
