@@ -6,7 +6,7 @@ public class Player
     public Location CurrentLocation;
     public int CurrentHealth;
     public int MaxHealth;
-    public Weapon CurrentWeapon;
+    public Inventory PlayerInventory;
 
     public Player(string input_name)
     {
@@ -14,7 +14,8 @@ public class Player
         CurrentLocation = World.LocationByID(1); // Set location to home
         CurrentHealth = 100;
         MaxHealth = 100;
-        CurrentWeapon = new Weapon(1, "Rusty Sword", 5);
+        PlayerInventory = new Inventory(10);
+        PlayerInventory.AddItem(new Weapon(1, "Rusty Sword", 5));
 
     }
 
@@ -39,7 +40,7 @@ public class Player
                 break;
 
             case "i":
-                // TODO: MAKE THE INVENTORY SYSTEM SO IT CAN BE SHOWN
+                
                 break;
 
             default:

@@ -20,7 +20,7 @@ public class Program
         Console.WriteLine();
 
         Console.WriteLine("What is the name of this brave warrior?");
-        string name = Console.ReadLine();
+        string name = Console.ReadLine()!;
         Console.WriteLine($"{name}? Very well, very well.");
 
         Player player = new Player(name);
