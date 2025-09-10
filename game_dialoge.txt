@@ -9,3 +9,23 @@ Every step you take brings you closer to the truth… and to the power you'll ne
 
 The spiders are coming.
 Will you be ready?"
+
+
+
+
+quest 1 
+"Those filthy rats are chewing through my herbs! I can't brew a single potion with them running around. Please, clear them out before they ruin everything!"
+
+"You actually did it! The garden's safe, and my herbs are intact for now, at least. Thank you, truly. Here, take this it's not much, but it's well-earned."
+
+(You receive 25 gold and a Minor Healing Potion.)
+quest 2
+"Snakes. Dozens of 'em. Slithering through my fields like they own the place. I can't harvest a thing with them out there. If you’ve got a weapon and a spine, I could use your help."
+"Well I’ll be... You actually cleared 'em out! The field’s mine again — thanks to you. I owe you more than just coin, but this’ll have to do for now. Come back anytime, friend."
+(You receive 30 gold and some Fresh Produce.)
+
+quest 3
+
+"Spider silk is rare… and incredibly valuable. I need it for a special order, but I won’t step one foot near that cursed forest. Bring me some, if you dare — and I’ll make it worth your while."
+
+"You actually brought it back... intact! Remarkable. This silk will weave the finest thread in the realm. I knew you had the nerve for it. Thank you you have saved the village, you will always be our hero.
