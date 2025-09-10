@@ -7,7 +7,7 @@ class Player
 
     public Player()
     {
-        CurrentLocation = World.LocationByID(1);// Set location to home
+        CurrentLocation = World.LocationByID(1); // Set location to home
         CurrentHealth = 100;
     }
 
