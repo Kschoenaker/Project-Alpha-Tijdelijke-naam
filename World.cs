@@ -1,5 +1,5 @@
 namespace ProjectAlpha;
-public static class World
+public class World
 {
 
     public static readonly List<Weapon> Weapons = new List<Weapon>();
