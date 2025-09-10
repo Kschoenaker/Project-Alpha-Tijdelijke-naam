@@ -1,3 +1,4 @@
+
 public class Quest
 {
     public int QuestId;
@@ -47,4 +48,5 @@ public class Quest
     // // quest completed massage
     // public bool questCompleted;
     // public string reward;
+
 

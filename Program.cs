@@ -1,2 +1,10 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World!");
+﻿using ProjectAlpha;
+
+public class Program
+{
+    public static void Main()
+    {
+        World TemporaryWorld = new World();
+        Player player = new Player();
+    }
+}
