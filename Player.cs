@@ -4,11 +4,13 @@ class Player
 {
     public Location CurrentLocation;
     public int CurrentHealth;
+    public int MaxHealth;
 
     public Player()
     {
         CurrentLocation = World.LocationByID(1); // Set location to home
         CurrentHealth = 100;
+        MaxHealth = 100;
     }
 
     public void InteractionMenu()
