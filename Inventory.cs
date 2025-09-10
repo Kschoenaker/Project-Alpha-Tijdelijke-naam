@@ -1,17 +1,27 @@
 using ProjectAlpha;
+using System;
+using System.Collections.Generic;
 
 class Inventory
 {
-    List<Weapon> Items = new List<Weapon>();
+    private List<Weapon> Items = new List<Weapon>();
+    private int MaxSpace;
 
-    public Inventory(int maxSpace = 2)
+    public Inventory(int maxSpace = 10)
     {
-        int MaxSpace = maxSpace
+        MaxSpace = maxSpace;
     }
 
     public void AddItem(Weapon weapon)
     {
-        Items.Add(weapon);
+        if (Items.Count < MaxSpace)
+        {
+            Items.Add(weapon);
+        }
+        else
+        {
+            Console.WriteLine("Inventory is full!");
+        }
     }
 
     public void RemoveItem(Weapon item)
@@ -22,8 +32,9 @@ class Inventory
     public void ShowItems()
     {
         Console.WriteLine("Inventory:");
-        foreach (string item in Items)
+        foreach (Weapon item in Items)
         {
             Console.WriteLine("- " + item.Name);
         }
-
+    }
+}
