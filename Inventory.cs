@@ -1,11 +1,11 @@
-using ProjectAlpha;
+namespace ProjectAlpha;
 using System;
 using System.Collections.Generic;
 
-class Inventory
+public class Inventory
 {
-    private List<Weapon> Items = new List<Weapon>();
-    private int MaxSpace;
+    public List<Weapon> Items = new List<Weapon>();
+    public int MaxSpace;
 
     public Inventory(int maxSpace = 10)
     {
