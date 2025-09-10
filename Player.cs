@@ -14,7 +14,7 @@ class Player
         CurrentLocation = World.LocationByID(1); // Set location to home
         CurrentHealth = 100;
         MaxHealth = 100;
-        CurrentWeapon = new Weapon();
+        CurrentWeapon = new Weapon(1, "Rusty Sword", 5);
 
     }
 
@@ -62,7 +62,7 @@ class Player
 
         Console.WriteLine();
         Console.WriteLine("What direction would you like to go? (N/S/E/W)");
-        string direction = Console.ReadLine();
+        string direction = Console.ReadLine()!;
 
         if (!(direction == "N" || direction == "S" || direction == "E" || direction == "W"))
         {
