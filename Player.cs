@@ -115,9 +115,7 @@ class Player
         Console.WriteLine(CurrentLocation.MoveMessage);
         Console.WriteLine();
 
-        // Show move options
-        Console.WriteLine("Move options");
-        ShowMoveOptions();
+        InteractionMenu();
 
         return true;
     }
