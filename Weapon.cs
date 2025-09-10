@@ -2,9 +2,9 @@ namespace ProjectAlpha;
 
 public class Weapon
 {
-    int ID;
-    string Name;
-    int MaximumDamage;
+    public int ID;
+    public string Name;
+    public int MaximumDamage;
 
     public Weapon(int id, string name, int maxdamage) {
         ID = id;
