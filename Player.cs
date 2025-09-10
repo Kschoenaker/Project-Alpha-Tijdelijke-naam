@@ -2,15 +2,20 @@ namespace ProjectAlpha;
 
 class Player
 {
+    public string Name;
     public Location CurrentLocation;
     public int CurrentHealth;
     public int MaxHealth;
+    public Weapon CurrentWeapon;
 
-    public Player()
+    public Player(string input_name)
     {
+        Name = input_name;
         CurrentLocation = World.LocationByID(1); // Set location to home
         CurrentHealth = 100;
         MaxHealth = 100;
+        CurrentWeapon = new Weapon();
+
     }
 
     public void InteractionMenu()
