@@ -40,7 +40,7 @@ public class Player
                 break;
 
             case "i":
-                
+                PlayerInventory.ShowItems();
                 break;
 
             default:
