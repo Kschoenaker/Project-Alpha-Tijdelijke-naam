@@ -22,12 +22,86 @@ public class Player
 
     }
 
+    public void TalkToNpc(string npc)
+    {
+        Console.WriteLine($"[T] Talk to {npc}");
+
+    }
+    //  
+    public void HandleNpc()
+    {
+        // check --> OP DE JUISTE LOCATION BENT
+        if (!(CurrentLocation.ID == 3 || CurrentLocation.ID == 7 || CurrentLocation.ID == 4))
+        {
+            return;
+        }
+        
+        // NPC DIALOG --> BASED ON QUEST
+
+        // start quest or dont start quest
+        int questId = 0;
+        switch (CurrentLocation.ID)
+        {
+            case 9:
+                questId = 3;
+                break;
+            case 7:
+                questId = 2;
+                break;
+            case 4:
+                questId = 1;
+                break;
+        }
+
+        Quest locationQuest = World.QuestByID(questId);
+
+        Console.WriteLine(locationQuest.Description);
+
+        Console.WriteLine("start quest y/n");
+
+            string StartQuest = Console.ReadLine();
+            if (StartQuest == "y")
+            {
+                CurrentQuest = locationQuest;
+                Console.WriteLine("start battle");
+                // start a battle of the right location --> current zetten op de goede kwest --> npc diolog
+                start_battle();
+            }
+            else if (StartQuest == "n")
+            {
+                Console.WriteLine("dont start battle");
+            }
+    }
+
     public void InteractionMenu()
     {
+        //  als quest location id == 7 --> talk to nps rats quest
+        //  als location == 4  --> talk to npc en snakes
+        //  als location == 9 --> talk to nps for spiders
+        //  als location == 3 --> talk to guard 
+        //- comlpteted quest count >=2 can move to next location
+
+        Console.WriteLine($"You are now at {CurrentLocation.Name}");
         Console.WriteLine("You can perform the following actions in this location:");
         Console.WriteLine("[S] Show your current stats");
         Console.WriteLine("[M] Show the map and move to another location");
         Console.WriteLine("[I] Show your inventory");
+        if (CurrentLocation.ID == 7)
+        {
+            TalkToNpc("Carl the farmer");
+        }
+        else if (CurrentLocation.ID == 4)
+        {
+            TalkToNpc("Lannie the Alchamist");
+        }
+        else if (CurrentLocation.ID == 3)
+        {
+            TalkToNpc("the stoic guard");
+        }
+
+
+
+        // als je op een bepaalde locatie bent 
 
         string menu_selection = Console.ReadLine()!.ToLower();
 
@@ -45,7 +119,10 @@ public class Player
             case "i":
                 PlayerInventory.ShowItems();
                 break;
-
+            case "t":
+                // dont start quest
+                HandleNpc();
+                break;
             default:
                 break;
         }
