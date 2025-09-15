@@ -131,7 +131,7 @@ public class Battle
         Console.WriteLine("[D] Defend");
         Console.WriteLine("[F] Flee");
 
-        return Console.ReadLine()!;
+        return Console.ReadLine()!.ToUpper();
     }
 
     public string AttackTypeMenu()
@@ -141,7 +141,7 @@ public class Battle
         Console.WriteLine("[S] Medium attack (Stamina cost: 25)");
         Console.WriteLine("[D] Small attack (Stamina cost: 10)");
 
-        return Console.ReadLine()!;
+        return Console.ReadLine()!.ToUpper();
     }
 
     public void HandlePlayerAttack()
