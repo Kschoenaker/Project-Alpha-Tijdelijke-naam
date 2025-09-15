@@ -167,4 +167,9 @@ public class Player
         Console.WriteLine("SF = Spider Field");
         Console.WriteLine("HM = Home");
     }
+
+    public void start_battle()
+    {
+        Battle NewBattle = new Battle(this,  );
+    }
 }
