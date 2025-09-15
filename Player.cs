@@ -177,6 +177,31 @@ public class Player
 
     public void start_battle()
     {
-        Battle NewBattle = new Battle(this,  );
+        int monsterID = 0;
+        switch (CurrentQuest.ID)
+        {
+            case 1:
+                monsterID = 2;
+                break;
+            case 2:
+                monsterID = 1;
+                break;
+            case 3:
+                monsterID = 3;
+                break;
+        }
+        List<Monster> monsters = new List<Monster>();
+        monsters.Add(World.MonsterByID(monsterID));
+        monsters.Add(World.MonsterByID(monsterID));
+        monsters.Add(World.MonsterByID(monsterID));
+
+        Battle NewBattle = new Battle(this, monsters);
+
+        bool battleResult = NewBattle.HandleBattle();
+        if (battleResult)
+        {
+            CompletedQuest.Add(CurrentQuest);
+            CurrentQuest = null;
+        }
     }
 }
