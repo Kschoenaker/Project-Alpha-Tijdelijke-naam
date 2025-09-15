@@ -6,6 +6,7 @@ public class Battle
     public List<Monster> MonsterList;
     public int Stamina;
 
+    private Weapon CurrentWeapon;
     private bool battleStarted = true;
     private int turnsDefend = 0;
     private Random rand = new Random();
@@ -20,6 +21,18 @@ public class Battle
     public bool HandleBattle()
     {
         Console.WriteLine("A dangerous opponent lies ahead!");
+        Console.WriteLine("Select you're weapon.");
+
+        int index = 0;
+        foreach (Weapon weapon in PlayerReference.PlayerInventory.Items)
+        {
+            Console.WriteLine($"[{index}] {weapon.Name}");
+            index++;
+        }
+        int select = Convert.ToInt32(Console.ReadLine());
+        CurrentWeapon = PlayerReference.PlayerInventory.Items[select];
+
+        Console.WriteLine();
         Console.WriteLine("You ready you're weapon.");
         Console.WriteLine();
 
@@ -165,7 +178,7 @@ public class Battle
 
             if (chosenMonster is not null)
             {
-                chosenMonster.CurrentHealth -= Convert.ToInt32((double)PlayerReference.CurrentWeapon.MaximumDamage * attackMultiplier);
+                chosenMonster.CurrentHealth -= Convert.ToInt32((double)CurrentWeapon.MaximumDamage * attackMultiplier);
                 CheckMonsterHealth(chosenMonster);
                 return;
             }
