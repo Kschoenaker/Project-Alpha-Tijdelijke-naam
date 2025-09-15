@@ -1,3 +1,5 @@
+using System.Runtime.InteropServices;
+
 namespace ProjectAlpha;
 
 public class Player
@@ -30,6 +32,9 @@ public class Player
         Console.WriteLine("[I] Show your inventory");
 
         string menu_selection = Console.ReadLine()!.ToLower();
+
+        CurrentQuest = World.QuestByID(1);
+        start_battle();
 
         switch (menu_selection)
         {
@@ -191,9 +196,13 @@ public class Player
                 break;
         }
         List<Monster> monsters = new List<Monster>();
-        monsters.Add(World.MonsterByID(monsterID));
-        monsters.Add(World.MonsterByID(monsterID));
-        monsters.Add(World.MonsterByID(monsterID));
+        Monster monsterType = World.MonsterByID(monsterID);
+
+        for (int i = 1; i <= 3; i++)
+        {
+            Monster tempMonster = new Monster(monsterType.ID, monsterType.Name, monsterType.MaxDamage, monsterType.CurrentHealth, monsterType.MaxHealth);
+            monsters.Add(tempMonster);
+        }
 
         Battle NewBattle = new Battle(this, monsters);
 
