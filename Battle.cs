@@ -202,7 +202,7 @@ public class Battle
         Console.WriteLine("What monster will you attack");
         for (int i = 0; i < MonsterList.Count; i++)
         {
-            Console.WriteLine($"[{i}] {MonsterList[i].Name} - {MonsterList[i].CurrentHealth}/{MonsterList[i].MaxHealth}");
+            Console.WriteLine($"[{i}] {MonsterList[i].Name} - {MonsterList[i].CurrentHealth}/{MonsterList[i].MaxHealth} Hp");
         }
 
         int choice = int.Parse(Console.ReadLine()!);
@@ -222,6 +222,7 @@ public class Battle
         if (monster.CurrentHealth <= 0)
         {
             Console.WriteLine($"{monster.Name} was slain");
+            Console.WriteLine();
             MonsterList.Remove(monster);
         }
     }
