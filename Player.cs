@@ -8,6 +8,9 @@ public class Player
     public int MaxHealth;
     public Inventory PlayerInventory;
 
+    public List<Quest> CompletedQuest;
+    public Quest CurrentQuest;
+
     public Player(string input_name)
     {
         Name = input_name;
@@ -57,6 +60,10 @@ public class Player
     bool MoveLocation()
     {
         Console.WriteLine($"Current location: {CurrentLocation.Name}");
+        Console.WriteLine("Move options");
+        ShowMoveOptions();
+
+        Console.WriteLine();
 
         //Draw map
         DrawMap();
