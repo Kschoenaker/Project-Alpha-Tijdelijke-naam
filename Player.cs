@@ -141,14 +141,14 @@ public class Player
 
     bool MoveLocation()
     {
-        Console.WriteLine($"Current location: {CurrentLocation.Name}");
-        Console.WriteLine("Move options");
-        ShowMoveOptions();
-
         Console.WriteLine();
 
         //Draw map
         DrawMap();
+
+        Console.WriteLine($"Current location: {CurrentLocation.Name}");
+        Console.WriteLine("Move options");
+        ShowMoveOptions();
 
         Console.WriteLine();
         Console.WriteLine("What direction would you like to go? (N/S/E/W)");
