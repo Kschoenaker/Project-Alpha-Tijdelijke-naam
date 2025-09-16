@@ -107,8 +107,8 @@ public class Player
 
         string menu_selection = Console.ReadLine()!.ToLower();
 
-        CurrentQuest = World.QuestByID(1);
-        start_battle();
+        // CurrentQuest = World.QuestByID(1);
+        // start_battle();
 
         switch (menu_selection)
         {
