@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Security.Cryptography.X509Certificates;
 
 namespace ProjectAlpha;
 
@@ -10,7 +11,7 @@ public class Player
     public int MaxHealth;
     public Inventory PlayerInventory;
 
-    public List<Quest> CompletedQuest;
+    public List<Quest> CompletedQuest = new List<Quest>();
     public Quest CurrentQuest;
 
     public Player(string input_name)
@@ -37,7 +38,7 @@ public class Player
         {
             return;
         }
-        
+
         // NPC DIALOG --> BASED ON QUEST
 
         // start quest or dont start quest
@@ -57,22 +58,29 @@ public class Player
 
         Quest locationQuest = World.QuestByID(questId);
 
+        // Check if quest is done
+        if (CompletedQuest.Contains(locationQuest))
+        {
+            Console.WriteLine("Thank you so much for helping me!");
+            return;
+        }
+
         Console.WriteLine(locationQuest.Description);
 
         Console.WriteLine("start quest y/n");
 
-            string StartQuest = Console.ReadLine();
-            if (StartQuest == "y")
-            {
-                CurrentQuest = locationQuest;
-                Console.WriteLine("start battle");
-                // start a battle of the right location --> current zetten op de goede kwest --> npc diolog
-                start_battle();
-            }
-            else if (StartQuest == "n")
-            {
-                Console.WriteLine("dont start battle");
-            }
+        string StartQuest = Console.ReadLine().ToLower();
+        if (StartQuest == "y")
+        {
+            CurrentQuest = locationQuest;
+            Console.WriteLine("start battle");
+            // start a battle of the right location --> current zetten op de goede kwest --> npc diolog
+            Start_battle();
+        }
+        else if (StartQuest == "n")
+        {
+            Console.WriteLine("dont start battle");
+        }
     }
 
     public void InteractionMenu()
@@ -108,7 +116,7 @@ public class Player
         string menu_selection = Console.ReadLine()!.ToLower();
 
         // CurrentQuest = World.QuestByID(1);
-        // start_battle();
+        // Start_battle();
 
         switch (menu_selection)
         {
@@ -145,6 +153,8 @@ public class Player
 
         //Draw map
         DrawMap();
+
+        Console.WriteLine();
 
         Console.WriteLine($"Current location: {CurrentLocation.Name}");
         Console.WriteLine("Move options");
@@ -208,11 +218,14 @@ public class Player
                 break;
         }
 
-        Console.WriteLine($"Location updated successfully: {CurrentLocation.Name}");
-        Console.WriteLine(CurrentLocation.MoveMessage);
+        if (GuardCheck())
+        {
+            Console.WriteLine($"Location updated successfully: {CurrentLocation.Name}");
+            Console.WriteLine(CurrentLocation.MoveMessage);
+        }
         Console.WriteLine();
 
-        InteractionMenu();
+        OnLocationSwitch();
 
         return true;
     }
@@ -237,7 +250,7 @@ public class Player
         }
     }
 
-    void DrawMap()
+    static void DrawMap()
     {
         Console.WriteLine("          AG");
         Console.WriteLine("          AH");
@@ -257,7 +270,38 @@ public class Player
         Console.WriteLine("HM = Home");
     }
 
-    public void start_battle()
+    public void OnLocationSwitch()
+    {
+        switch (CurrentLocation.ID)
+        {
+            case 1: // Home set health to full
+                CurrentHealth = MaxHealth;
+                break;
+        }
+    }
+
+    public bool GuardCheck()
+    {
+        if (CurrentLocation.ID == 8)
+        {
+            if (CompletedQuest.Count() >= 2)
+            {
+                return true;
+            }
+            else
+            {
+                Console.WriteLine("HALTT THEE. You shall not pass, you are not a worthy hero yet.");
+                CurrentLocation = World.LocationByID(3); // Set location back to guard post
+                return false;
+            }
+        }
+        else
+        {
+            return true; // Not at gaurd location
+        }
+    }
+
+    public void Start_battle()
     {
         int monsterID = 0;
         switch (CurrentQuest.ID)
@@ -287,7 +331,59 @@ public class Player
         if (battleResult)
         {
             CompletedQuest.Add(CurrentQuest);
+            HandleQuestComplete(CurrentQuest.ID);
             CurrentQuest = null;
         }
+        else
+        {
+            if (CurrentHealth <= 0)
+            {
+                Console.WriteLine("The hero has fallen");
+            }
+            else
+            {
+                switch (CurrentQuest.ID)
+                {
+                    case 1: // ALCHEMIST_GARDEN
+                        Console.WriteLine("Aghh you coward, you ran. Alright get you're strength back and try again");
+                        break;
+                    case 2: // FARMERS_FIELD
+                        Console.WriteLine("Aghh you coward, you ran. Alright get you're strength back and try again");
+                        break;
+                }
+                CurrentQuest = null;
+            }
+        }
+    }
+
+    public void HandleQuestComplete(int questID)
+    {
+        Weapon? givenWeapon = null;
+        string givenDialogue = "";
+        switch (questID)
+        {
+            case 1: // ALCHEMIST_GARDEN
+                givenWeapon = new Weapon(2, "The magic dagger", 8);
+                givenDialogue = "Thank you";
+                break;
+            case 2: // FARMERS_FIELD
+                givenWeapon = new Weapon(3, "The pitchfork", 10);
+                givenDialogue = "Thank you";
+                break;
+            case 3: // SPIDER_SILK 
+                givenWeapon = new Weapon(4, "Spider blade", 13);
+                givenDialogue = "Thank you";
+                break;
+        }
+
+        // Give reward
+        PlayerInventory.AddItem(givenWeapon);
+
+        // Make player Stronger
+        MaxHealth += 30;
+        CurrentHealth = MaxHealth;
+
+        // Dialogue
+        Console.WriteLine(givenDialogue);
     }
 }

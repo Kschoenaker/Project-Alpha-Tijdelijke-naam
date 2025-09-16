@@ -21,7 +21,7 @@ public class Battle
     public bool HandleBattle()
     {
         Console.WriteLine("A dangerous opponent lies ahead!");
-        Console.WriteLine("Select you're weapon.");
+        Console.WriteLine("Select your weapon.");
 
         int index = 0;
         foreach (Weapon weapon in PlayerReference.PlayerInventory.Items)
@@ -33,7 +33,7 @@ public class Battle
         CurrentWeapon = PlayerReference.PlayerInventory.Items[select];
 
         Console.WriteLine();
-        Console.WriteLine("You ready you're weapon.");
+        Console.WriteLine("You ready your weapon.");
         Console.WriteLine();
 
         while (battleStarted)
