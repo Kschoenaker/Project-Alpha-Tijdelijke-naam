@@ -10,7 +10,7 @@ public class Player
     public int MaxHealth;
     public Inventory PlayerInventory;
 
-    public List<Quest> CompletedQuest;
+    public List<Quest> CompletedQuest = new List<Quest>();
     public Quest CurrentQuest;
 
     public Player(string input_name)
