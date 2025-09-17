@@ -277,6 +277,10 @@ public class Player
             case 1: // Home set health to full
                 CurrentHealth = MaxHealth;
                 break;
+            case 9:
+                CurrentQuest = World.QuestByID(3);
+                Start_battle();
+                break;
         }
     }
 
