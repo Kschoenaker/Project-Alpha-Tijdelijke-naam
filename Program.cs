@@ -37,6 +37,9 @@ public class Program
         {
             player.InteractionMenu();
 
+
+
+            
             if (player.CurrentHealth == 0)
             {
                 gameRunning = StartGameOver();
@@ -48,7 +51,7 @@ public class Program
                 Console.WriteLine($"you wil now for always me know als HERO {player.Name}");
                 Thread.Sleep(30000);
                 gameRunning = false;
-                
+
             }
 
 

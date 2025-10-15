@@ -116,9 +116,11 @@ public class Battle
                 }
             }
 
-            if (turnsDefend > 0)
+            switch (turnsDefend)
             {
-                turnsDefend -= 1;
+                case  turnsDefend > 0:
+                    turnsDefend -= 1;
+                
             }
         }
         return false;
