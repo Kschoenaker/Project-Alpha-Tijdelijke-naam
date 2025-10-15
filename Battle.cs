@@ -116,12 +116,12 @@ public class Battle
                 }
             }
 
-            switch (turnsDefend)
+            if (turnsDefend > 0)
             {
-                case  turnsDefend > 0:
-                    turnsDefend -= 1;
-                
+                turnsDefend -= 1;
             }
+
+
         }
         return false;
     }
